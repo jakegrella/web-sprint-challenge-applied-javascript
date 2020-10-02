@@ -37,14 +37,27 @@ axios
 	.get('https://lambda-times-api.herokuapp.com/articles')
 	.then((res) => {
 		let articles = res.data.articles;
-		console.log(articles);
+		// console.log(articles);
 
-		const articleCard = cardMaker({
-			headline: 'hivvfvvvvvvwsrgvr fsefgfgwe',
-			authorPhoto: '',
-			authorName: 'jake',
-		});
-		entry.append(articleCard);
+		// let articleCats = Object.keys(articles);
+		// console.log(articleCats);
+
+		// console.log(articles[Object.keys(articles)]);
+
+		// articleCats.forEach((elem) => {
+		//     console.log('hi');
+		//     const articleCard = cardMaker({
+		//         headline: ,
+		//         authorPhoto: '',
+		//         authorName: 'jake',
+		//     });
+		//     entry.append(articleCard);
+		// });
+		for (let artCats in articles) {
+			articles[artCats].forEach((article) => {
+				entry.append(cardMaker(article));
+			});
+		}
 	})
 	.catch((err) => {
 		console.log(err);
@@ -102,7 +115,7 @@ axios
 // 		console.log(err);
 // 	});
 
-function cardMaker({ headline, authorPhoto, authorName }) {
+function cardMaker(article) {
 	//instantiate
 	let card = document.createElement('div');
 	const articleTitle = document.createElement('div');
@@ -111,6 +124,13 @@ function cardMaker({ headline, authorPhoto, authorName }) {
 	const img = document.createElement('img');
 	const author = document.createElement('span');
 
+	//structure
+	card.append(articleTitle);
+	card.append(authorDiv);
+	authorDiv.append(imgContainer);
+	imgContainer.append(img);
+	authorDiv.append(author);
+
 	//class names
 	card.classList.add('card');
 	articleTitle.classList.add('headline');
@@ -118,9 +138,9 @@ function cardMaker({ headline, authorPhoto, authorName }) {
 	imgContainer.classList.add('img-container');
 
 	//text content
-	articleTitle.textContent = headline;
-	img.src = authorPhoto;
-	author.textContent = authorName;
+	articleTitle.textContent = article.headline;
+	img.src = article.authorPhoto;
+	author.textContent = article.authorName;
 
 	//listener
 	card.addEventListener('click', () => {
