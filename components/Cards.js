@@ -21,40 +21,14 @@
 //
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 
-//test
-// axios
-// 	.get('https://lambda-times-api.herokuapp.com/articles')
-// 	.then((res) => {
-// 		console.log(res);
-// 	})
-// 	.catch((drama) => {
-// 		console.log(drama);
-// 	});
-
 const entry = document.querySelector('.cards-container');
 
 axios
 	.get('https://lambda-times-api.herokuapp.com/articles')
 	.then((res) => {
 		let articles = res.data.articles;
-		// console.log(articles);
-
-		// let articleCats = Object.keys(articles);
-		// console.log(articleCats);
-
-		// console.log(articles[Object.keys(articles)]);
-
-		// articleCats.forEach((elem) => {
-		//     console.log('hi');
-		//     const articleCard = cardMaker({
-		//         headline: ,
-		//         authorPhoto: '',
-		//         authorName: 'jake',
-		//     });
-		//     entry.append(articleCard);
-		// });
-		for (let artCats in articles) {
-			articles[artCats].forEach((article) => {
+		for (let articleCategories in articles) {
+			articles[articleCategories].forEach((article) => {
 				entry.append(cardMaker(article));
 			});
 		}
@@ -62,58 +36,6 @@ axios
 	.catch((err) => {
 		console.log(err);
 	});
-
-// axios
-// 	.get('https://lambda-times-api.herokuapp.com/articles')
-// 	.then((res) => {
-// 		// console.log(res);
-// 		// console.log(res.data);
-// 		console.log(res.data.articles);
-// 		// console.log(res.data.articles.length);
-// 		// console.log(res.data.articles.bootstrap.length);
-// 		// console.log(res.data.articles.bootstrap[0]);
-
-// 		console.log(Object.keys(res.data.articles));
-
-// 		Object.keys(res.data.articles).forEach((elem) => {
-// 			console.log(Object.keys(res.data.articles)[elem]);
-// 		});
-
-// 		let obj = { first: 'hi' };
-// 		console.log(obj[Object.keys(obj)[0]]); //returns hi
-
-// 		console.log('--------------');
-
-// 		// res.data.articles[Object.keys(res.data.articles)[0]]
-// 		console.log(res.data.articles[Object.keys(res.data.articles)[0]]);
-// 		console.log(
-// 			res.data.articles[
-// 				Object.keys(res.data.articles)[[Object.keys(res.data.articles)[0]]]
-// 			]
-// 		);
-
-// 		// res.data.articles[Object.keys(res.data.articles)[0]]
-
-// 		let articles = res.data.articles;
-// 		let articleCats = [];
-// 		Object.keys(articles).forEach((elem) => {
-// 			articleCats.push(elem);
-// 		});
-// 		console.log('article titles -> ', articleCats);
-
-// 		let articleTitles = [];
-// 		articleCats.forEach((elem) => {
-// 			console.log(articles[elem]);
-// 			articleTitles.push(articles[elem].headline);
-// 		});
-// 		console.log('articleTitles -> ', articleTitles);
-
-// 		// Object.keys(articles)[0]
-// 		// console.log(Object.keys(articles)[0]);
-// 	})
-// 	.catch((err) => {
-// 		console.log(err);
-// 	});
 
 function cardMaker(article) {
 	//instantiate
